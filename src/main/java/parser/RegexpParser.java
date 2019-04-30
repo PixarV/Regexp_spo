@@ -39,16 +39,12 @@ public class RegexpParser implements Notation {
         if (isEnd()) log.info("empty input");
         log.info("From regex: " + peek());
         RegEx firstPart = term();
-//        if (peek() == ')')
 
-        if (isEnd() || peek() == ')') return firstPart;
-
-        if (peek() == '|') {
+        if (!isEnd() && peek() == '|') {
             eat();
             RegEx secondPart = regex();
             return new Choice(firstPart, secondPart);
-        }
-        throw new IllegalStateException("error in regex");
+        } else return firstPart;
     }
 
     @Override
@@ -68,6 +64,7 @@ public class RegexpParser implements Notation {
     public RegEx factor() {
         RegEx base = base();
         Factor factor = new Factor(base, NONE);
+        if(isEnd()) return factor;
 
         log.info("From base.qualifier" + peek());
         char c = peek();
