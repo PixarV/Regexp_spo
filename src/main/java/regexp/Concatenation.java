@@ -4,7 +4,6 @@ package regexp;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.FieldDefaults;
-import sun.misc.Regexp;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,18 +13,18 @@ import static lombok.AccessLevel.PRIVATE;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class Concatenation extends RegEx {
-    List<RegEx> regExes = new LinkedList<>();
+public class Concatenation extends RegExp {
+    List<RegExp> regExps = new LinkedList<>();
 
-    public void addRegEx(RegEx e) {
-        regExes.add(e);
+    public void addRegEx(RegExp e) {
+        regExps.add(e);
     }
 
     public int getSize() {
-        return regExes.size();
+        return regExps.size();
     }
 
-    public RegEx getFirst()  {
-        return regExes.get(0);
+    public RegExp getFirst()  {
+        return regExps.get(0);
     }
 }

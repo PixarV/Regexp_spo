@@ -9,6 +9,6 @@ import static lombok.AccessLevel.PRIVATE;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class Base extends RegEx {
+public class Base extends RegExp {
     char c;
 }

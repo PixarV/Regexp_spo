@@ -1,12 +1,10 @@
 package regexp;
 
+import enums.Quantifier;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.FieldDefaults;
-
-import java.util.LinkedList;
-import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -14,15 +12,7 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 @EqualsAndHashCode(callSuper = true)
-public class Factor extends RegEx {
-    RegEx base;
+public class Factor extends RegExp {
+    RegExp base;
     Quantifier quantifier;
-
-
-    public enum Quantifier {
-        STAR,
-        PLUS,
-        QUESTION,
-        NONE
-    }
 }

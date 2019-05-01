@@ -6,8 +6,8 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import regexp.*;
 
+import static enums.Quantifier.*;
 import static lombok.AccessLevel.PRIVATE;
-import static regexp.Factor.Quantifier.*;
 
 @Data
 @Slf4j
@@ -34,34 +34,34 @@ public class RegexpParser implements Notation {
     }
 
     @Override
-    public RegEx regex() {
+    public RegExp regex() {
         if (isEnd()) log.info("empty input");
         log.info("From regex: " + peek());
-        RegEx firstPart = term();
+        RegExp firstPart = term();
 
         if (!isEnd() && peek() == '|') {
             eat();
-            RegEx secondPart = regex();
+            RegExp secondPart = regex();
             return new Choice(firstPart, secondPart);
         } else return firstPart;
     }
 
     @Override
-    public RegEx term() {
+    public RegExp term() {
         Concatenation sequence = new Concatenation();
         //if (isEnd()) throw new IllegalStateException("error in term");
 
         while (!isEnd() && peek() != '|' && peek() != ')') {
             log.info("From term: " + peek());
-            RegEx factor = factor();
+            RegExp factor = factor();
             sequence.addRegEx(factor);
         }
         return (sequence.getSize() == 1) ? sequence.getFirst() : sequence;
     }
 
     @Override
-    public RegEx factor() {
-        RegEx base = base();
+    public RegExp factor() {
+        RegExp base = base();
         Factor factor = new Factor(base, NONE);
         if (isEnd()) return factor;
 
@@ -86,13 +86,13 @@ public class RegexpParser implements Notation {
     }
 
     @Override
-    public RegEx base() {
+    public RegExp base() {
         if (isEnd()) throw new IllegalStateException("Empty error in base");
         log.info("From base: " + peek());
 
         if (peek() == '(') {
             eat();
-            RegEx regex = regex();
+            RegExp regex = regex();
             if (isEnd() || peek() != ')')
                 throw new IllegalStateException(") doesnt found");
             eat();

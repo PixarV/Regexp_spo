@@ -1,10 +1,10 @@
 package parser;
 
-import regexp.RegEx;
+import regexp.RegExp;
 
 public interface Notation {
-    RegEx regex();
-    RegEx term();
-    RegEx factor();
-    RegEx base();
+    RegExp regex();
+    RegExp term();
+    RegExp factor();
+    RegExp base();
 }
