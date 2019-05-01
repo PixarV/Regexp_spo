@@ -1,5 +1,6 @@
 package parser;
 
+import enums.Quantifier;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -63,26 +64,23 @@ public class RegexpParser implements Notation {
     public RegExp factor() {
         RegExp base = base();
         Factor factor = new Factor(base, NONE);
-        if (isEnd()) return factor;
 
-        log.info("From base.qualifier" + peek());
-        char c = peek();
-
-        switch (c) {
-            case '*':
-                eat();
-                factor.setQuantifier(STAR);
-                break;
-            case '+':
-                eat();
-                factor.setQuantifier(PLUS);
-                break;
-            case '?':
-                eat();
-                factor.setQuantifier(QUESTION);
-                break;
+        if (!isEnd()) {
+            log.info("From base.quantifier" + peek());
+            char c = peek();
+            factor.setQuantifier(parseQuantifier(c));
         }
         return factor;
+    }
+
+    private Quantifier parseQuantifier(char c) {
+        for (Quantifier q : Quantifier.values()) {
+            if (q.getC() == c) {
+                eat();
+                return q;
+            }
+        }
+        return NONE;
     }
 
     @Override
