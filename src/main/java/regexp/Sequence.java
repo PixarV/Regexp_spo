@@ -1,32 +1,40 @@
 package regexp;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
-@Data
+
+@Getter
 @Builder
+@AllArgsConstructor
+@FieldDefaults(level = PRIVATE)
 @EqualsAndHashCode(callSuper = true)
-@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class Sequence extends RegExp {
-    List<RegExp> regExps = new LinkedList<>();
+    List<RegExp> factors = new LinkedList<>();
+
+    public Sequence(RegExp... regExps) {
+        factors.addAll(Arrays.asList(regExps));
+    }
 
     public void addRegEx(RegExp e) {
-        regExps.add(e);
+        factors.add(e);
     }
 
     public int getSize() {
-        return regExps.size();
+        return factors.size();
     }
 
     public RegExp getFirst()  {
-        return regExps.get(0);
+        return factors.get(0);
     }
 }

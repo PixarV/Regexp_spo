@@ -1,16 +1,18 @@
 package regexp;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
 import static lombok.AccessLevel.PRIVATE;
 
-@Data
+@Getter
 @Builder
+@AllArgsConstructor
+@FieldDefaults(level = PRIVATE)
 @EqualsAndHashCode(callSuper = true)
-@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class Choice extends RegExp {
     RegExp one;
     RegExp two;

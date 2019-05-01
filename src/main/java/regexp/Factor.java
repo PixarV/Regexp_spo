@@ -1,19 +1,17 @@
 package regexp;
 
 import enums.Quantifier;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import static lombok.AccessLevel.PRIVATE;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
-@FieldDefaults(level = PRIVATE)
 @EqualsAndHashCode(callSuper = true)
+@FieldDefaults(level = PRIVATE)
 public class Factor extends RegExp {
     RegExp base;
     Quantifier quantifier;
