@@ -13,7 +13,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class Concatenation extends RegExp {
+public class Sequence extends RegExp {
     List<RegExp> regExps = new LinkedList<>();
 
     public void addRegEx(RegExp e) {

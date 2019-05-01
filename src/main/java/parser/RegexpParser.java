@@ -48,7 +48,7 @@ public class RegexpParser implements Notation {
 
     @Override
     public RegExp term() {
-        Concatenation sequence = new Concatenation();
+        Sequence sequence = new Sequence();
         //if (isEnd()) throw new IllegalStateException("error in term");
 
         while (!isEnd() && peek() != '|' && peek() != ')') {
