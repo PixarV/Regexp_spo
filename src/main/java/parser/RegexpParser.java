@@ -14,9 +14,8 @@ import static regexp.Factor.Quantifier.*;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class RegexpParser implements Notation {
-    String input;
+    final String input;
     int index;
-
 
     private char next() {
         return input.charAt(index++);
@@ -50,21 +49,21 @@ public class RegexpParser implements Notation {
     @Override
     public RegEx term() {
         Concatenation sequence = new Concatenation();
-        if (isEnd()) throw new IllegalStateException("error in term");
+        //if (isEnd()) throw new IllegalStateException("error in term");
 
         while (!isEnd() && peek() != '|' && peek() != ')') {
             log.info("From term: " + peek());
             RegEx factor = factor();
             sequence.addRegEx(factor);
         }
-        return sequence;
+        return (sequence.getSize() == 1) ? sequence.getFirst() : sequence;
     }
 
     @Override
     public RegEx factor() {
         RegEx base = base();
         Factor factor = new Factor(base, NONE);
-        if(isEnd()) return factor;
+        if (isEnd()) return factor;
 
         log.info("From base.qualifier" + peek());
         char c = peek();
