@@ -65,4 +65,21 @@ public class MatchUtilTest {
         assertTrue(MatchUtil.match(nfa, "abbd"));
         assertFalse(MatchUtil.match(nfa, "ab"));
     }
-}
+
+    @Test
+    public void matchForHardCase() { // %3 = 0
+        RegexpParser regexpParser = new RegexpParser("(0|(1(01*0)*1))*", 0);
+        RegExp regex = regexpParser.regex();
+        Pair<State, State> nfa = regex.createNFA();
+
+        assertTrue(MatchUtil.match(nfa, ""));
+        assertTrue(MatchUtil.match(nfa, "0"));
+        assertTrue(MatchUtil.match(nfa, "000"));
+        assertTrue(MatchUtil.match(nfa, "11"));
+        assertTrue(MatchUtil.match(nfa, "1001"));
+        assertTrue(MatchUtil.match(nfa, "1100"));
+        assertTrue(MatchUtil.match(nfa, "1100000"));
+        assertFalse(MatchUtil.match(nfa, "1"));
+        assertFalse(MatchUtil.match(nfa, "101"));
+        assertFalse(MatchUtil.match(nfa, "10111"));
+    }}
