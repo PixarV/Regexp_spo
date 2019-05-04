@@ -43,6 +43,8 @@ public class Sequence extends RegExp {
 
     @Override
     public Pair<State, State> createNFA() { //concat
+        if (factors.size() == 0) throw new IllegalStateException("Empty group");
+
         Optional<Pair<State, State>> concatenation = factors.stream()
                 .map(RegExp::createNFA)
                 .reduce((s1, s2) -> {

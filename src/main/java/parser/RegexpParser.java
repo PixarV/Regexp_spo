@@ -37,7 +37,8 @@ public class RegexpParser implements Notation {
 
     @Override
     public RegExp regexp() {
-        if (isEnd()) log.info("empty input");
+        if (isEnd()) throw new IllegalStateException("empty input");
+
         log.info("From regexp: " + peek());
         RegExp firstPart = term();
 
@@ -51,7 +52,6 @@ public class RegexpParser implements Notation {
     @Override
     public RegExp term() {
         Sequence sequence = new Sequence();
-        //if (isEnd()) throw new IllegalStateException("error in term");
 
         while (!isEnd() && peek() != '|' && peek() != ')') {
             log.info("From term: " + peek());
@@ -86,9 +86,9 @@ public class RegexpParser implements Notation {
 
     @Override
     public RegExp base() {
-        if (isEnd()) throw new IllegalStateException("Empty error in base");
-        log.info("From base: " + peek());
+        if (parseQuantifier(peek()) != NONE) throw new IllegalStateException("Quantifier without base");
 
+        log.info("From base: " + peek());
         if (peek() == '(') {
             eat();
             RegExp regex = regexp();
@@ -99,4 +99,5 @@ public class RegexpParser implements Notation {
         }
         return new Base(next());
     }
+
 }
