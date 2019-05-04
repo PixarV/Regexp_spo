@@ -2,8 +2,6 @@ package nfa;
 
 import org.junit.Before;
 import org.junit.Test;
-import parser.RegexpParser;
-import regexp.RegExp;
 
 import static org.junit.Assert.*;
 
@@ -15,9 +13,7 @@ public class MatchUtilTest {
 
     @Test
     public void matchForSimpleFactor() {
-        RegexpParser regexpParser = new RegexpParser("d*", 0);
-        RegExp regex = regexpParser.regex();
-        Pair<State, State> nfa = regex.createNFA();
+        Pair<State, State> nfa = MatchUtil.compileRegExp("d*");
 
         assertTrue(MatchUtil.match(nfa, ""));
         assertTrue(MatchUtil.match(nfa, "d"));
@@ -28,9 +24,7 @@ public class MatchUtilTest {
 
     @Test
     public void matchForSimpleConcat() {
-        RegexpParser regexpParser = new RegexpParser("abc", 0);
-        RegExp regex = regexpParser.regex();
-        Pair<State, State> nfa = regex.createNFA();
+        Pair<State, State> nfa = MatchUtil.compileRegExp("abc");
 
         assertTrue(MatchUtil.match(nfa, "abc"));
         assertFalse(MatchUtil.match(nfa, "ab"));
@@ -40,9 +34,7 @@ public class MatchUtilTest {
 
     @Test
     public void matchForConcatFactor() {
-        RegexpParser regexpParser = new RegexpParser("ab*c*", 0);
-        RegExp regex = regexpParser.regex();
-        Pair<State, State> nfa = regex.createNFA();
+        Pair<State, State> nfa = MatchUtil.compileRegExp("ab*c*");
 
         assertTrue(MatchUtil.match(nfa, "ac"));
         assertTrue(MatchUtil.match(nfa, "abc"));
@@ -55,9 +47,7 @@ public class MatchUtilTest {
 
     @Test
     public void matchForUnion() {
-        RegexpParser regexpParser = new RegexpParser("(a|b)*d", 0);
-        RegExp regex = regexpParser.regex();
-        Pair<State, State> nfa = regex.createNFA();
+        Pair<State, State> nfa = MatchUtil.compileRegExp("(a|b)*d");
 
         assertTrue(MatchUtil.match(nfa, "d"));
         assertTrue(MatchUtil.match(nfa, "ad"));
@@ -68,9 +58,7 @@ public class MatchUtilTest {
 
     @Test
     public void matchForHardCase() { // %3 = 0
-        RegexpParser regexpParser = new RegexpParser("(0|(1(01*0)*1))*", 0);
-        RegExp regex = regexpParser.regex();
-        Pair<State, State> nfa = regex.createNFA();
+        Pair<State, State> nfa = MatchUtil.compileRegExp("(0|(1(01*0)*1))*");
 
         assertTrue(MatchUtil.match(nfa, ""));
         assertTrue(MatchUtil.match(nfa, "0"));

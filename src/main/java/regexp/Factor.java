@@ -9,13 +9,14 @@ import nfa.State;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @FieldDefaults(level = PRIVATE)
 public class Factor extends RegExp {
+
     RegExp base;
+    @Setter
     Quantifier quantifier;
 
     @Override

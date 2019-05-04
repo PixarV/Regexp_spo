@@ -8,8 +8,7 @@ import lombok.experimental.FieldDefaults;
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
-@AllArgsConstructor
-@FieldDefaults(level=PRIVATE)
+@FieldDefaults(level=PRIVATE, makeFinal = true)
 public class Pair<T, U> {
     T left;
     U right;

@@ -15,6 +15,7 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class RegexpParser implements Notation {
+
     final String input;
     int index;
 
@@ -35,14 +36,14 @@ public class RegexpParser implements Notation {
     }
 
     @Override
-    public RegExp regex() {
+    public RegExp regexp() {
         if (isEnd()) log.info("empty input");
-        log.info("From regex: " + peek());
+        log.info("From regexp: " + peek());
         RegExp firstPart = term();
 
         if (!isEnd() && peek() == '|') {
             eat();
-            RegExp secondPart = regex();
+            RegExp secondPart = regexp();
             return new Choice(firstPart, secondPart);
         } else return firstPart;
     }
@@ -90,7 +91,7 @@ public class RegexpParser implements Notation {
 
         if (peek() == '(') {
             eat();
-            RegExp regex = regex();
+            RegExp regex = regexp();
             if (isEnd() || peek() != ')')
                 throw new IllegalStateException(") doesnt found");
             eat();

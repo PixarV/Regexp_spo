@@ -77,14 +77,14 @@ public class RegexpParserTest {
     @Test
     public void easyRegex() {
         RegexpParser regexpParser = new RegexpParser("(a|b)*d", 0);
-        RegExp actual = regexpParser.regex();
+        RegExp actual = regexpParser.regexp();
         assertEquals(actual, expectedEasy);
     }
 
     @Test
     public void hardRegex() {
         RegexpParser regexpParser = new RegexpParser("(0|(1(01*0)*1))*", 0);
-        RegExp actual = regexpParser.regex();
+        RegExp actual = regexpParser.regexp();
         assertEquals(actual, expectedHard);
     }
 }
