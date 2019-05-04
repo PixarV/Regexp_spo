@@ -20,9 +20,8 @@ public class Base extends RegExp {
     // TODO symbol class
 
     @Override
-    public State createNFA() {
-        Pair<State, State> pair = State.fromSymbol(this);
-        return pair.getLeft();
+    public Pair<State, State> createNFA() {
+        return State.fromSymbol(this);
     }
 
     public boolean match(char symbol) {

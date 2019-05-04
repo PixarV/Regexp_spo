@@ -1,5 +1,6 @@
 package regexp;
 
+import nfa.Pair;
 import nfa.State;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,8 +17,8 @@ public class BaseTest {
 
     @Test
     public void createNFA() {
-        State nfa = base.createNFA();
-        State end = nfa.getTransitions().get(base);
+        Pair<State, State> nfa = base.createNFA();
+        State end = nfa.getLeft().getTransitions().get(base);
 
         assertTrue(base.match('d'));
         assertFalse(base.match('a'));

@@ -3,6 +3,7 @@ package regexp;
 import enums.Quantifier;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import nfa.Pair;
 import nfa.State;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -18,7 +19,7 @@ public class Factor extends RegExp {
     Quantifier quantifier;
 
     @Override
-    public State createNFA() { // closure
+    public Pair<State, State> createNFA() { // closure
         return null;
     }
 }

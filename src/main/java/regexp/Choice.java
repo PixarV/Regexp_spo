@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
+import nfa.Pair;
 import nfa.State;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -19,7 +20,7 @@ public class Choice extends RegExp {
     RegExp two;
 
     @Override
-    public State createNFA() { //union
+    public Pair<State, State> createNFA() { //union
         return null;
     }
 }

@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
+import nfa.Pair;
 import nfa.State;
 
 import java.util.Arrays;
@@ -40,7 +41,7 @@ public class Sequence extends RegExp {
     }
 
     @Override
-    public State createNFA() { //concat
+    public Pair<State, State> createNFA() { //concat
         // change isEnd
 //        Optional<Pair<State, State>> reduce = factors.stream()
 //                .map(State::fromSymbol)
