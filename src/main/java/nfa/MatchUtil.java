@@ -28,7 +28,7 @@ public class MatchUtil {
         return Optional.empty();
     }
 
-    private boolean checkCurrentStates(List<State> currentStates) {
+    private boolean checkEndInCurrentStates(List<State> currentStates) {
         for (State current : currentStates)
             if (current.isEnd()) return true;
         return false;
@@ -37,11 +37,11 @@ public class MatchUtil {
     public boolean match(Pair<State, State> nfa, String word) {
         State start = nfa.getLeft();
 
-        List<State> currentStates = new ArrayList<>();
+        List<State> currentStates = new ArrayList<>(); // states that you're located now
         getFuckingStatesForState(start, currentStates, new HashSet<>());
 
         for (char c : word.toCharArray()) {
-            List<State> nextStates = new ArrayList<>();
+            List<State> nextStates = new ArrayList<>(); // states where you can go
 
             for (State current : currentStates) {
                 Set<Base> bases = current.getTransitions().keySet();
@@ -56,6 +56,6 @@ public class MatchUtil {
             currentStates = nextStates;
         }
 
-        return checkCurrentStates(currentStates);
+        return checkEndInCurrentStates(currentStates);
     }
 }
