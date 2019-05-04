@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
+import nfa.State;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -16,4 +17,9 @@ import static lombok.AccessLevel.PRIVATE;
 public class Choice extends RegExp {
     RegExp one;
     RegExp two;
+
+    @Override
+    public State createNFA() { //union
+        return null;
+    }
 }

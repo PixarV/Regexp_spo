@@ -6,10 +6,13 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
+import nfa.State;
+import org.graalvm.util.Pair;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -36,5 +39,17 @@ public class Sequence extends RegExp {
 
     public RegExp getFirst()  {
         return factors.get(0);
+    }
+
+    @Override
+    public State createNFA() { //concat
+        // change isEnd
+//        Optional<Pair<State, State>> reduce = factors.stream()
+//                .map(State::fromSymbol)
+//                .reduce((s1, s2) -> {
+//                    s1.getRight().addEpsilonTransition(s2.getLeft());
+//                    return new Pair<>(s1.getLeft(), s2.getRight());
+//                });
+        return null;
     }
 }
