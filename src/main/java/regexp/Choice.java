@@ -21,6 +21,19 @@ public class Choice extends RegExp {
 
     @Override
     public Pair<State, State> createNFA() { //union
-        return null;
+        State start = new State(false);
+        State end = new State(true);
+        Pair<State, State> nfa1 = one.createNFA();
+        Pair<State, State> nfa2 = two.createNFA();
+
+        start.addEpsilonTransition(nfa1.getLeft());
+        start.addEpsilonTransition(nfa2.getLeft());
+        nfa1.getRight().addEpsilonTransition(end);
+        nfa2.getRight().addEpsilonTransition(end);
+
+        nfa1.getRight().setEnd(false);
+        nfa2.getRight().setEnd(false);
+
+        return new Pair<>(start, end);
     }
 }

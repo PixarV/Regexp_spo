@@ -52,4 +52,17 @@ public class MatchUtilTest {
         assertFalse(MatchUtil.match(nfa, ""));
         assertFalse(MatchUtil.match(nfa, "bc"));
     }
+
+    @Test
+    public void matchForUnion() {
+        RegexpParser regexpParser = new RegexpParser("(a|b)*d", 0);
+        RegExp regex = regexpParser.regex();
+        Pair<State, State> nfa = regex.createNFA();
+
+        assertTrue(MatchUtil.match(nfa, "d"));
+        assertTrue(MatchUtil.match(nfa, "ad"));
+        assertTrue(MatchUtil.match(nfa, "bd"));
+        assertTrue(MatchUtil.match(nfa, "abbd"));
+        assertFalse(MatchUtil.match(nfa, "ab"));
+    }
 }
