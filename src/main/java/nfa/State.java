@@ -1,8 +1,7 @@
 package nfa;
 
-import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
-import org.graalvm.util.Pair;
 import regexp.RegExp;
 
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ import java.util.Map;
 
 import static lombok.AccessLevel.PRIVATE;
 
+@Getter
 @FieldDefaults(level=PRIVATE)
 public class State {
     boolean isEnd;
