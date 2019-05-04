@@ -19,11 +19,37 @@ public class MatchUtilTest {
         RegExp regex = regexpParser.regex();
         Pair<State, State> nfa = regex.createNFA();
 
-        assertTrue(MatchUtil.match(nfa,""));
-        assertTrue(MatchUtil.match(nfa,"d"));
-        assertTrue(MatchUtil.match(nfa,"dd"));
-        assertTrue(MatchUtil.match(nfa,"ddd"));
-        assertFalse(MatchUtil.match(nfa,"dda"));
+        assertTrue(MatchUtil.match(nfa, ""));
+        assertTrue(MatchUtil.match(nfa, "d"));
+        assertTrue(MatchUtil.match(nfa, "dd"));
+        assertTrue(MatchUtil.match(nfa, "ddd"));
+        assertFalse(MatchUtil.match(nfa, "dda"));
     }
 
+    @Test
+    public void matchForSimpleConcat() {
+        RegexpParser regexpParser = new RegexpParser("abc", 0);
+        RegExp regex = regexpParser.regex();
+        Pair<State, State> nfa = regex.createNFA();
+
+        assertTrue(MatchUtil.match(nfa, "abc"));
+        assertFalse(MatchUtil.match(nfa, "ab"));
+        assertFalse(MatchUtil.match(nfa, "abcc"));
+        assertFalse(MatchUtil.match(nfa, ""));
+    }
+
+    @Test
+    public void matchForConcatFactor() {
+        RegexpParser regexpParser = new RegexpParser("ab*c*", 0);
+        RegExp regex = regexpParser.regex();
+        Pair<State, State> nfa = regex.createNFA();
+
+        assertTrue(MatchUtil.match(nfa, "ac"));
+        assertTrue(MatchUtil.match(nfa, "abc"));
+        assertTrue(MatchUtil.match(nfa, "abbc"));
+        assertTrue(MatchUtil.match(nfa, "ab"));
+        assertTrue(MatchUtil.match(nfa, "abcc"));
+        assertFalse(MatchUtil.match(nfa, ""));
+        assertFalse(MatchUtil.match(nfa, "bc"));
+    }
 }

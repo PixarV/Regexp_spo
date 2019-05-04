@@ -12,6 +12,7 @@ import nfa.State;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -36,19 +37,20 @@ public class Sequence extends RegExp {
         return factors.size();
     }
 
-    public RegExp getFirst()  {
+    public RegExp getFirst() {
         return factors.get(0);
     }
 
     @Override
     public Pair<State, State> createNFA() { //concat
-        // change isEnd
-//        Optional<Pair<State, State>> reduce = factors.stream()
-//                .map(State::fromSymbol)
-//                .reduce((s1, s2) -> {
-//                    s1.getRight().addEpsilonTransition(s2.getLeft());
-//                    return new Pair<>(s1.getLeft(), s2.getRight());
-//                });
-        return null;
+        Optional<Pair<State, State>> concatenation = factors.stream()
+                .map(RegExp::createNFA)
+                .reduce((s1, s2) -> {
+                    s1.getRight().addEpsilonTransition(s2.getLeft());
+                    s1.getRight().setEnd(false);
+                    return new Pair<>(s1.getLeft(), s2.getRight());
+                });
+
+        return concatenation.orElse(null);
     }
 }

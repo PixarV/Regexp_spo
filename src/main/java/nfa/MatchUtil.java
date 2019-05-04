@@ -8,6 +8,7 @@ import java.util.*;
 
 @UtilityClass
 public class MatchUtil {
+    
     private void getFuckingStatesForState(State state, List<State> fuckingStates, Set<State> visited) {
         List<State> epsilons = state.getEpsilons();
 
@@ -44,11 +45,12 @@ public class MatchUtil {
             List<State> nextStates = new ArrayList<>(); // states where you can go
 
             for (State current : currentStates) {
-                Set<Base> bases = current.getTransitions().keySet();
+                Map<Base, State> transitions = current.getTransitions();
+                Set<Base> bases = transitions.keySet();
 
                 Optional<Base> base = getBase(bases, c);
                 if (base.isPresent()) {
-                    State next = current.getTransitions().get(base.get());
+                    State next = transitions.get(base.get());
                     getFuckingStatesForState(next, nextStates, new HashSet<>());
                 }
             }
