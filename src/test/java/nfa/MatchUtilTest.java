@@ -70,4 +70,16 @@ public class MatchUtilTest {
         assertFalse(MatchUtil.match(nfa, "1"));
         assertFalse(MatchUtil.match(nfa, "101"));
         assertFalse(MatchUtil.match(nfa, "10111"));
-    }}
+    }
+
+    @Test
+    public void matchForPlus() {
+        Pair<State, State> nfa = MatchUtil.compileRegExp("ab+c*d");
+
+        assertTrue(MatchUtil.match(nfa, "abd"));
+        assertTrue(MatchUtil.match(nfa, "abbcd"));
+        assertTrue(MatchUtil.match(nfa, "abbbccd"));
+        assertFalse(MatchUtil.match(nfa, "ad"));
+        assertFalse(MatchUtil.match(nfa, "acd"));
+    }
+}

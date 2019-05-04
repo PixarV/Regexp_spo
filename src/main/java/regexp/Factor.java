@@ -34,6 +34,13 @@ public class Factor extends RegExp {
                 nfa.getRight().setEnd(false);
                 return new Pair<>(start, end);
 
+            case PLUS:
+                start.addEpsilonTransition(nfa.getLeft());
+                nfa.getRight().addEpsilonTransition(end);
+                nfa.getRight().addEpsilonTransition(nfa.getLeft());
+                nfa.getRight().setEnd(false);
+                return new Pair<>(start, end);
+
             case NONE:
                 start.addEpsilonTransition(nfa.getLeft());
                 nfa.getRight().addEpsilonTransition(end);
