@@ -20,6 +20,21 @@ public class Factor extends RegExp {
 
     @Override
     public Pair<State, State> createNFA() { // closure
+        State start = new State(false);
+        State end = new State(true);
+        Pair<State, State> nfa = base.createNFA();
+
+        switch (quantifier) {
+            case STAR:
+                start.addEpsilonTransition(end);
+                start.addEpsilonTransition(nfa.getLeft());
+                nfa.getRight().addEpsilonTransition(end);
+                nfa.getRight().addEpsilonTransition(nfa.getLeft());
+                nfa.getRight().setEnd(false);
+                return new Pair<>(start, end);
+        }
         return null;
     }
+
+
 }

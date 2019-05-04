@@ -1,7 +1,9 @@
 package nfa;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import regexp.Base;
 import regexp.RegExp;
 
 import java.util.ArrayList;
@@ -14,9 +16,10 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @FieldDefaults(level=PRIVATE)
 public class State {
+    @Setter
     boolean isEnd;
     List<State> epsilons = new ArrayList();
-    Map<RegExp, State> transitions = new HashMap<>();
+    Map<Base, State> transitions = new HashMap<>();
 
     public State(boolean isEnd) {
         this.isEnd = isEnd;
@@ -26,7 +29,7 @@ public class State {
         this.epsilons.add(to);
     }
 
-    public void addTransition(State to, RegExp symbol) {
+    public void addTransition(State to, Base symbol) {
         this.transitions.put(symbol, to);
     }
 
@@ -37,7 +40,7 @@ public class State {
         return new Pair<>(start, end);
     }
 
-    public static Pair<State, State> fromSymbol(RegExp symbol) {
+    public static Pair<State, State> fromSymbol(Base symbol) {
         State start = new State(false);
         State end = new State(true);
         start.addTransition(end, symbol);
