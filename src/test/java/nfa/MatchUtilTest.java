@@ -82,4 +82,16 @@ public class MatchUtilTest {
         assertFalse(MatchUtil.match(nfa, "ad"));
         assertFalse(MatchUtil.match(nfa, "acd"));
     }
+
+    @Test
+    public void matchForQuestion() {
+        Pair<State, State> nfa = MatchUtil.compileRegExp("a?bc+d?");
+
+        assertTrue(MatchUtil.match(nfa, "bc"));
+        assertTrue(MatchUtil.match(nfa, "bcd"));
+        assertTrue(MatchUtil.match(nfa, "abcd"));
+        assertTrue(MatchUtil.match(nfa, "abccd"));
+        assertFalse(MatchUtil.match(nfa, "aabccd"));
+        assertFalse(MatchUtil.match(nfa, "abcddd"));
+    }
 }
