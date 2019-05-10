@@ -1,7 +1,9 @@
 # regexp-spo
 Regexp parser + engine (lab4)
 
+# EBNF-notation
+
 regex = term '|' regex | term  
 term = {factor}  
-factor = base ['*' | '+' | {'?'}]  
+factor = base ['*' | '+' | '?']  
 base = char  
